@@ -15,10 +15,11 @@ with open ("blacklist_ip_new.txt","r") as blacklist_ip_new:
 sep = "\n"
 for entry in entries_to_add:
     entry="https://10.2.1.140//repEntries/add?smsuser=ufirsov&smspass=Bank@123&ip={}&TagData=Reputation DV Score - Manual,90".format(entry.split(sep,1)[0])
-    print(entry)    
+   # print(entry)    
 with open("blacklist_ip_current.txt","a") as blacklist_ip_current:
     blacklist_ip_current.writelines(entries_to_add)        
 
+'''
 ### And here we're removing entries from file and blacklist
 with open ("blacklist_ip_new.txt","r") as blacklist_ip_new:
     with open ("blacklist_ip_current.txt","r") as blacklist_ip_current:        
@@ -33,9 +34,9 @@ for entry in entries_to_remove:
 for entry in entries_to_remove:
     with open("blacklist_ip_current.txt","r+") as blacklist_ip_current:
         for string in blacklist_ip_current:
-            replace (entry,'')
+            entry.replace(entry,'')
 
-
+'''
 
 with open("blacklist_ip_current.txt","a") as blacklist_ip_current:
     blacklist_ip_current.writelines(entries_to_add)     
