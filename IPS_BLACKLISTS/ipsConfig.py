@@ -19,7 +19,6 @@ for entry in entries_to_add:
 with open("blacklist_ip_current.txt","a") as blacklist_ip_current:
     blacklist_ip_current.writelines(entries_to_add)        
 
-'''
 ### And here we're removing entries from file and blacklist
 with open ("blacklist_ip_new.txt","r") as blacklist_ip_new:
     with open ("blacklist_ip_current.txt","r") as blacklist_ip_current:        
@@ -36,7 +35,8 @@ for entry in entries_to_remove:
         for string in blacklist_ip_current:
             entry.replace(entry,'')
 
-'''
 
+'''
 with open("blacklist_ip_current.txt","a") as blacklist_ip_current:
     blacklist_ip_current.writelines(entries_to_add)     
+'''
