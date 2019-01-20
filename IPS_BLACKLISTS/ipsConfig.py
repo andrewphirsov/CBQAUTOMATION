@@ -1,6 +1,6 @@
-
 import requests
-
+import re
+import fileinput   
 
 ### Donwnload new (updated by SCOC) blacklist and put it to file 'blacklist_ip_new'
 url = "http://kickself.com/wp-content/uploads/2019/01/CSOC_BLOCKLIST_IP.txt"
@@ -19,11 +19,11 @@ with open("blacklist_ip_buffer.txt","r") as blacklist_ip_buffer:
 with open ("blacklist_ip_new.txt","r") as blacklist_ip_new:
     with open ("blacklist_ip_current.txt","r") as blacklist_ip_current:
         entries_to_add = set(blacklist_ip_new).difference(blacklist_ip_current)
-print (entries_to_add)        
+#print (entries_to_add)        
 sep = "\n"
 for entry in entries_to_add:
     entry="https://10.2.1.140//repEntries/add?smsuser=ufirsov&smspass=Bank@123&ip={}&TagData=Reputation DV Score - Manual,90".format(entry.split(sep,1)[0])
-    print(entry)    
+  
 with open("blacklist_ip_current.txt","a") as blacklist_ip_current:
     blacklist_ip_current.writelines(entries_to_add)        
 
@@ -32,7 +32,7 @@ with open ("blacklist_ip_new.txt","r") as blacklist_ip_new:
     with open ("blacklist_ip_current.txt","r") as blacklist_ip_current:        
         entries_to_remove= set(blacklist_ip_current).difference(blacklist_ip_new)
 
-print(entries_to_remove)
+#print(entries_to_remove)
 
 for entry in entries_to_remove:
     entry="https://10.2.1.140//repEntries/delete?smsuser=ufirsov&smspass=Bank@123&ip={}&criteria=entry".format(entry.split(sep,1)[0])
@@ -40,9 +40,21 @@ for entry in entries_to_remove:
     #print(r.status_code)     
     #print(entry)
 
+'''
+for line in fileinput.input('blacklist_ip_current.txt',inplace=True):
+    for entry in entries_to_remove:
+        if not re.search(entry,line):
+            print(line)
+'''
+
 with open("blacklist_ip_current.txt","r+") as blacklist_ip_current:
     for entry in entries_to_remove:
         for string in blacklist_ip_current:
-            entry.replace(string,'')
+            if entry not in string:
+            
+                
+                print(string)
+                #str.replace(string,'','1')
+            
  
 
